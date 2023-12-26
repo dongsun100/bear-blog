@@ -104,5 +104,6 @@ jobs:
         environment_name: Bear-blog-env
         version_label: github-action-${{steps.current-time.outputs.formattedTime}}
         use_existing_version_if_available: true
+        wait_for_environment_recovery: 600
         deployment_package: ./deploy.zip
     
