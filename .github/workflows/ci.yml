@@ -86,11 +86,14 @@ jobs:
     - name: Generate deployment package
       run: zip ./deploy.zip -r * .[^.]*
 
-    - name: Current timestamp
-      id: timestamp
-      run: |
-        echo "::set-output name=date::$(date +'%Y-%m-%dT%H-%M-%S-%3NZ')"
 
+    - name: Get current time
+      uses: 1466587594/get-current-time@v2
+      id: current-time
+      with:
+        format: YYYY-MM-DDTHH-mm-ss
+        utcOffset: "+09:00"
+          
     - name: 🚛 Beanstalk Deploy
       uses: einaregilsson/beanstalk-deploy@v21
       with:        
@@ -99,6 +102,6 @@ jobs:
         region: ap-northeast-2
         application_name: bear-blog
         environment_name: Bear-blog-env
-        version_label: ${{ steps.timestamp.outputs.date }}
+        version_label: github-action-${{steps.current-time.outputs.formattedTime}}
         use_existing_version_if_available: true
     
