@@ -64,7 +64,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies
-      run: yarn install
+      run: npm install
       
     - name: Remove .next
       run: |
@@ -81,7 +81,7 @@ jobs:
 #        NEXT_PUBLIC_MIXPANEL_PROJECT_TOKEN: ${{ secrets.NEXT_PUBLIC_MIXPANEL_PROJECT_TOKEN_STAGE }}
           
     - name: Build
-      run: yarn build
+      run: npm build
 
     - name: Generate deployment package
       run: zip ./deploy.zip -r * .[^.]*
