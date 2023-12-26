@@ -88,7 +88,8 @@ jobs:
 
     - name: Current timestamp
       id: timestamp
-      run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H-%M-%S-%3NZ')"
+      run: |
+        echo "::set-output name=date::$(date +'%Y-%m-%dT%H-%M-%S-%3NZ')"
 
     - name: 🚛 Beanstalk Deploy
       uses: einaregilsson/beanstalk-deploy@v21
@@ -98,6 +99,6 @@ jobs:
         region: ap-northeast-2
         application_name: bear-blog
         environment_name: Bear-blog-env
-        version_label: ${{ github.run_number }}
+        version_label: ${{ steps.timestamp.outputs.date }}
         use_existing_version_if_available: true
     
